@@ -1,0 +1,33 @@
+<script setup>
+import ButtonComponent from "../../components/button/ButtonComponent.vue";
+import {useRouter} from "vue-router";
+import useMyErrorStore from "../../store/error/useMyErrorStore.js";
+
+const router = useRouter();
+const myErrorStore = useMyErrorStore();
+
+const redirectMain = () => {
+  myErrorStore.clearErrorInfo();
+  // router.push()   : URL을 히스토리 스택에 추가하고 이동
+  // router.replace(): URL을 히스토리 스택에 추가하지 않고 이동
+  router.replace('/'); 
+}
+</script>
+
+<template>
+  <h1>에러 발생</h1>
+  <h2>에러 코드: {{ myErrorStore.errorCode }}</h2>
+  <h2>에러 내용: {{ myErrorStore.errorMsg }}</h2>
+  <h2>아래 버튼을 누르시면 메인 페이지로 이동합니다.</h2>
+  <br>
+  <ButtonComponent
+    :size="'middle'"
+    :color="'gray'"
+    :content="'Main page'" 
+    @click="redirectMain()"
+  />
+</template>
+
+<style scoped>
+
+</style>
