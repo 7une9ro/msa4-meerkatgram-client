@@ -6,6 +6,7 @@ import {reactive} from "vue";
 import MyStrikeThroughBehindWord from "../../components/decoration/MyStrikeThroughBehindWord.vue";
 import useAuthStore from "../../store/auth/useAuthStore.js";
 import {useRouter} from "vue-router";
+import userRule from "../../util/validator/rule/userRule.js";
 
 
 const router = useRouter();
@@ -16,14 +17,24 @@ const loginForm = reactive({
 });
 
 const handleSubmit = async () => {
-  await authStore.login(loginForm);
-  router.replace('/posts');
+  // 유효성 검사
+  const validatedEmail = userRule.email(loginForm.email);
+  const validatedPassword = userRule.password(loginForm.password);
+
+  // 유효성 검사 (성공 패턴)
+  if (!validatedEmail && !validatedPassword) {
+    await authStore.login(loginForm);
+    router.replace('/posts');
+  } 
+  // 유효성 검사 (실패 패턴)
+  else {
+    alert(`${validatedEmail}\n${validatedPassword}`);
+  }
 };
 </script>
 
 <template>
   <form @submit.prevent="handleSubmit">
-
     <InputComponent
       :type="'email'"
       :placeholder="'Email'"

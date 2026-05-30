@@ -42,6 +42,27 @@ const useAuthStore = defineStore('authStore', () => {
     }
   }
   
+  const reissue = async () => {
+    try {
+      const url = '/api/reissue-token';
+      
+      // [Q] POST 요청인데 왜 url만 전달하고 추가적인 인자값(body)은 주지 않나요?
+      // [A] JWT 재발급을 위한 Refresh Token은 주로 보안(XSS 방어 등)을 위해 브라우저의 'HttpOnly 쿠키'에 저장됩니다.
+      // 브라우저는 서버로 요청을 보낼 때 해당 도메인의 쿠키를 자동으로 Request Header에 포함하여 전송합니다.
+      // 따라서 프론트엔드 코드에서 명시적으로 Refresh Token을 꺼내어 바디(body)에 담아 보낼 필요가 없습니다.
+      const res = await myAxios.post(url);
+      const data = res.data.data;
+      
+      accessToken.value = data.accessToken;
+      userInfo.value = data.user;
+      isLoggedIn.value = true;
+      
+    } catch (error) {
+      clearAuthStore();
+      throw error;
+    }
+  }
+  
   return {
     // State
     isLoggedIn,
@@ -51,7 +72,8 @@ const useAuthStore = defineStore('authStore', () => {
     // Getters
     
     // Actions
-    login
+    login,
+    reissue
   }
 });
 
