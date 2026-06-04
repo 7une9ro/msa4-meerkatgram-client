@@ -2,6 +2,8 @@ import PostIndex from "../pages/posts/PostIndex.vue";
 import {createRouter, createWebHistory} from "vue-router";
 import Login from "../pages/auth/Login.vue";
 import useAuthStore from "../store/auth/useAuthStore.js";
+import PostDetail from "../pages/posts/PostDetail.vue";
+import Registration from "../pages/auth/Registration.vue";
 
 const setMeta = (isAuthenticated, isGuestOnly) => {
   return {
@@ -23,8 +25,18 @@ const routes = [
     meta: setMeta(false, false),
   },
   {
+    path: '/posts/:id',
+    component: PostDetail,
+    meta: setMeta(true, false),
+  },
+  {
     path: '/login',
     component: Login,
+    meta: setMeta(false, true),
+  },
+  {
+    path: '/registration',
+    component: Registration,
     meta: setMeta(false, true),
   }
 ];
