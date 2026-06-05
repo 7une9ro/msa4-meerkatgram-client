@@ -6,7 +6,7 @@ const usePostDetailStore = defineStore(
   'postDetailStore', () => {
 
     // 1. State
-    const post = ref();
+    const post = ref(null);
     
     // 2. Getter
     
@@ -22,6 +22,10 @@ const usePostDetailStore = defineStore(
       }
     }   
     
+    const clearPostDetail = () => {
+      post.value = null;
+    }
+    
     return {
       // State
       post,
@@ -29,7 +33,8 @@ const usePostDetailStore = defineStore(
       // Getter
       
       // Actions
-      getPost
+      getPost,
+      clearPostDetail
     };
 });
 

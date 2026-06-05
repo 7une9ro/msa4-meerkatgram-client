@@ -6,7 +6,7 @@ import {reactive} from "vue";
 import MyStrikeThroughBehindWord from "../../components/decoration/MyStrikeThroughBehindWord.vue";
 import useAuthStore from "../../store/auth/useAuthStore.js";
 import {useRouter} from "vue-router";
-import userRule from "../../util/validator/rule/userRule.js";
+import loginValidator from "../../util/validator/domain/auth/loginValidator.js";
 
 
 const router = useRouter();
@@ -18,8 +18,8 @@ const loginForm = reactive({
 
 const handleSubmit = async () => {
   // 유효성 검사
-  const validatedEmail = userRule.email(loginForm.email);
-  const validatedPassword = userRule.password(loginForm.password);
+  const validatedEmail = loginValidator.email(loginForm.email);
+  const validatedPassword = loginValidator.password(loginForm.password);
 
   // 유효성 검사 (성공 패턴)
   if (!validatedEmail && !validatedPassword) {

@@ -1,11 +1,13 @@
 <script setup>
 import {useRoute, useRouter} from "vue-router";
-import {onBeforeMount} from "vue";
+import {onBeforeMount, onBeforeUnmount} from "vue";
 import usePostDetailStore from "../../store/post/usePostDetailStore.js";
+import useAuthStore from "../../store/auth/useAuthStore.js";
 
 const route = useRoute();
 const router = useRouter();
 const postDetailStore = usePostDetailStore();
+const authStore = useAuthStore();
 
 onBeforeMount(async () => {
   try {
@@ -17,13 +19,20 @@ onBeforeMount(async () => {
     router.replace('/');
   }
 });
+
+onBeforeUnmount(postDetailStore.clearPostDetail);
 </script>
 
 <template>
-  <div class="container">
+  <div class="container"
+       v-if="postDetailStore.post"
+  >
     <div class="image" :style="{backgroundImage: `url(${postDetailStore.post.image})`}"></div>
     <div class="option-box">
-      <div class="delete-icon"></div>
+      <div class="delete-icon"
+           v-if="postDetailStore.post.userId === authStore.userInfo.id"
+      ></div>
+      <div v-else></div>
       <div class="like-box">
         <span>1919</span>
         <div class="like-icon"></div>
