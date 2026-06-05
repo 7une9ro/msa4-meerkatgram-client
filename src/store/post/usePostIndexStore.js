@@ -38,10 +38,7 @@ const usePostIndexStore = defineStore(
 
           currentPage.value++;
         } catch (error) {
-          // [TODO START]: 추후 배포 시 삭제 (2026-05-22, JunHyeon)
-          console.error(error);
-          // [TODO END]: 추후 배포 시 삭제 (2026-05-22, JunHyeon)
-          useMyErrorStore().setErrorInfo(error); // 단발성 메서드 호출
+          throw error;
         }
       }
     }

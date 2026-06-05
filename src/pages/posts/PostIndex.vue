@@ -6,11 +6,21 @@ import useMyErrorStore from "../../store/error/useMyErrorStore.js";
 import {useRouter} from "vue-router";
 
 const postIndexStore = usePostIndexStore();
+const myErrorStore = useMyErrorStore();
 
 const router = useRouter();
 
+const getPagination = async (page = 1) => {
+  try {
+    await postIndexStore.getPostPagination(page);
+  } catch (error) {
+    myErrorStore.setErrorInfo(error);
+    router.replace("/error");
+  }
+}
+
 const getNextPage = async () => {
-  await postIndexStore.getPostPagination(postIndexStore.getNextPageNumber);
+  await getPagination(postIndexStore.getNextPageNumber);
 }
 
 const redirectPostDetail = (id) => {
@@ -18,7 +28,7 @@ const redirectPostDetail = (id) => {
 }
 
 // LifeCycle
-onBeforeMount(postIndexStore.getPostPagination);
+onBeforeMount(getPagination);
 
 onBeforeUnmount(postIndexStore.clearPostIndex);
 </script>

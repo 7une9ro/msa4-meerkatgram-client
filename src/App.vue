@@ -1,10 +1,10 @@
 <script setup>
 import Header from "./components/Header.vue";
-import Main from "./components/Main.vue";
+import UserInfo from "./components/UserInfo.vue";
 </script>
 
 <template>
-  <Header/>
-  <hr>
-  <Main/>
+  <Header />
+  <UserInfo />
+  <router-view></router-view>
 </template>

@@ -26,7 +26,7 @@ const logout = async () => {
 
 <template>
   <div class="header">
-    <div class="title-box">
+    <div class="title-box" @click="redirectMain">
       <h1 class="title">Meerkatgram</h1>
     </div>
     <div class="btn-box">
@@ -53,6 +53,7 @@ const logout = async () => {
       />
     </div>
   </div>
+  <hr>
 </template>
 
 <style scoped>

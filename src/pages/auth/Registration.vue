@@ -1,16 +1,18 @@
 <script setup>
 import ButtonComponent from "../../components/button/ButtonComponent.vue";
 import MyStrikeThroughBehindWord from "../../components/decoration/MyStrikeThroughBehindWord.vue";
-import InputComponent from "../../components/InputComponent.vue";
+import InputComponent from "../../components/input/InputComponent.vue";
 import {reactive, ref} from "vue";
 import useFileStore from "../../store/file/useFileStore.js";
 import useAuthStore from "../../store/auth/useAuthStore.js";
 import {useRouter} from "vue-router";
 import registrationValidator from "../../util/validator/domain/auth/registrationValidator.js";
+import useMyErrorStore from "../../store/error/useMyErrorStore.js";
 
 const router = useRouter();
 const fileStore = useFileStore();
 const authStore = useAuthStore();
+const myErrorStore = useMyErrorStore();
 
 const preview = ref(null);
 const selectedFile = ref(null);
@@ -50,8 +52,8 @@ const handleSubmit = async () => {
     } else if(data.code === 'E21') {
       alert('잘못된 양식입니다.');
     } else {
-      alert("오류가 발생했습니다.\n잠시후 다시 시도해 주십시오.");
-      router.replace('/');
+      myErrorStore.setErrorInfo(error);
+      router.replace('/error');
     }
   }
 }

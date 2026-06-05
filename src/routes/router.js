@@ -4,6 +4,7 @@ import Login from "../pages/auth/Login.vue";
 import useAuthStore from "../store/auth/useAuthStore.js";
 import PostDetail from "../pages/posts/PostDetail.vue";
 import Registration from "../pages/auth/Registration.vue";
+import MyError from "../pages/errors/MyError.vue";
 
 const setMeta = (isAuthenticated, isGuestOnly) => {
   return {
@@ -38,6 +39,12 @@ const routes = [
     path: '/registration',
     component: Registration,
     meta: setMeta(false, true),
+  },
+  // 에러 관련
+  {
+    path: '/error',
+    component: MyError,
+    meta: setMeta(false, false),
   }
 ];
 
