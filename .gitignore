@@ -23,23 +23,8 @@ dist-ssr
 *.sln
 *.sw?
 
+.env
 
-│ │ 18 +   // 아래 css 및 build 설정을 추가하여 소스맵을 활성화합니다.               │ │
-│ │ 19 +   css: {                                                                    │ │
-│ │ 20 +     devSourcemap: true // 개발 단계에서 스타일 소스맵 활성화                │ │
-│ │ 21 +   },                                                                        │ │
-│ │ 22 +   build: {                                                                  │ │
-│ │ 23 +     sourcemap: true // 빌드 및 디버깅용 소스맵 활성화                       │ │
-│ │ 24 +   },                                                                        │ │
-│ │ 25 +                                                                             │ │
-│ │ 26 +   // 개발 서버 Proxy 정의                                                   │ │
-│ │ 27 +   server: {                                                                 │ │
-│ │ 28 +     proxy: {                                                                │ │
-│ │ 29 +       '/api': {                                                             │ │
-│ │ 30 +         target: 'http://localhost:8080', // Request 대상 서버 도메인        │ │
-│ │ 31 +         changeOrigin: true, // Request Header [Host] 필드 값을 대상 서버    │ │
-│ │    호스트로 번경                                                                 │ │
-│ │ 32 +         secure: false // SSL 인증서 검증 무시                               │ │
-│ │ 33 +       }                                                                     │ │
-│ │ 34 +     }                                                                       │ │
-│ │ 35 +   }
+public/*
+
+*.png
