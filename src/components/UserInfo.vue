@@ -1,8 +1,13 @@
 <script setup>
 import useAuthStore from "../store/auth/useAuthStore.js";
+import {useRouter} from "vue-router";
 
+const router = useRouter();
 const authStore = useAuthStore();
 
+const redirectPostCreate = () => {
+  router.push('/posts/create');
+};
 </script>
 
 <template>
@@ -16,13 +21,14 @@ const authStore = useAuthStore();
     </div>
     <div class="info-box">
       <div class="nick">{{ authStore.userInfo.nick }}</div>
-      <div class="write-count">posts 1919</div>
+      <div class="write-count">{{ authStore.userInfo.countPosts }}</div>
       <div class="redirect-box">
         <div class="redirect-icon-posts-index bg-image-square"
              style="background-image: url('/icons/gallery.png');"
         ></div>
         <div class="redirect-icon-posts-create bg-image-square"
              style="background-image: url('/icons/plus-sign.png');"
+             @click="redirectPostCreate"
         ></div>
         <div class="redirect-icon-posts-info bg-image-square"
              style="background-image: url('/icons/person.png');"

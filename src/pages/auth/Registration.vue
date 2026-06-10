@@ -68,7 +68,7 @@ const handleChangeProfile = async (e) => {
     }
     
     // API 서버에 파일 저장 요청
-    const fileUri = await fileStore.uploadFile(file); 
+    const fileUri = await fileStore.uploadFileProfile(file); 
     
     if (fileUri) {
       registrationData.profile = fileUri;

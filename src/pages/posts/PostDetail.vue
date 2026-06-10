@@ -3,11 +3,27 @@ import {useRoute, useRouter} from "vue-router";
 import {onBeforeMount, onBeforeUnmount} from "vue";
 import usePostDetailStore from "../../store/post/usePostDetailStore.js";
 import useAuthStore from "../../store/auth/useAuthStore.js";
+import usePostDeleteStore from "../../store/post/usePostDeleteStore.js";
+import useMyErrorStore from "../../store/error/useMyErrorStore.js";
 
 const route = useRoute();
 const router = useRouter();
-const postDetailStore = usePostDetailStore();
 const authStore = useAuthStore();
+const myErrorStore = useMyErrorStore();
+const postDetailStore = usePostDetailStore();
+const postDeleteStore = usePostDeleteStore();
+
+const postDelete = async () => {
+
+  try {
+    await postDeleteStore.deletePost(route.params.id);
+
+    alert('정상적으로 삭제되었습니다.');
+    router.replace('/posts');
+  } catch (error) {
+    myErrorStore.setErrorInfo(error);
+  }
+};
 
 onBeforeMount(async () => {
   try {
@@ -21,16 +37,18 @@ onBeforeMount(async () => {
 });
 
 onBeforeUnmount(postDetailStore.clearPostDetail);
+
 </script>
 
 <template>
-  <div class="container"
+  <div class="container"  
        v-if="postDetailStore.post"
   >
     <div class="image" :style="{backgroundImage: `url(${postDetailStore.post.image})`}"></div>
     <div class="option-box">
       <div class="delete-icon"
            v-if="postDetailStore.post.userId === authStore.userInfo.id"
+           @click="postDelete"
       ></div>
       <div v-else></div>
       <div class="like-box">

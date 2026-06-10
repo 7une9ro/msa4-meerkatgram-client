@@ -5,6 +5,7 @@ import useAuthStore from "../store/auth/useAuthStore.js";
 import PostDetail from "../pages/posts/PostDetail.vue";
 import Registration from "../pages/auth/Registration.vue";
 import MyError from "../pages/errors/MyError.vue";
+import PostCreate from "../pages/posts/PostCreate.vue";
 
 const setMeta = (isAuthenticated, isGuestOnly) => {
   return {
@@ -28,6 +29,11 @@ const routes = [
   {
     path: '/posts/:id',
     component: PostDetail,
+    meta: setMeta(true, false),
+  },
+  {
+    path: '/posts/create',
+    component: PostCreate,
     meta: setMeta(true, false),
   },
   {
