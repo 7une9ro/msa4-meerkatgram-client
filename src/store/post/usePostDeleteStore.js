@@ -10,7 +10,7 @@ const usePostDeleteStore = defineStore('postDeleteStore', () => {
   // 3. Actions
   const deletePost = async (id) => {
     try {
-      const url = `/api/posts/${id}/delete`;
+      const url = `/api/posts/${id}`;
 
       await myAxios.delete(url);
       return;

@@ -10,7 +10,7 @@ const usePostCreateStore = defineStore('postCreateStore', () => {
   // 3. Actions
   const create = async (data) => {
     try {
-      const url = '/api/posts/create';
+      const url = '/api/posts';
 
       const res = await myAxios.post(url, data);
       
